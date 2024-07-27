@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Example</title>
+    <style>
+        .toast-container{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: block;
+        }
+        .toast-header{
+            margin: 5px;
+            font-size: 20px;
+        }
+        .toast-progress{
+            width: 200px;
+            height: 3px;
+            background-color: burlywood;
+        }
+        .toast-progress-done{
+            width: 75%;
+            height: 100%;
+            /* padding: 2px; */
+            background-color: brown;
+            color: white;
+            transition: width 400ms;
+        }
+        .toast-close-button{
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 2px;
+            height: 15px;
+            width: 15px;
+            font-size: 10px;
+            color: red;
+            cursor: pointer;
+        }
+        .toast-content{
+            display: none;
+            position: relative;
+            transition: all 500ms;
+            padding: 10px;
+            border: 2px solid green;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .toast-content:hover{
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body style="height: 500vh;">
+    <button id="toast-button" onclick="showToast();">Show toast</button>
+    <div id="container" class="toast-container" onmouseover="willGo=false;" onmouseleave="willGo=true;">
+        <div class="toast-content">
+            <span class="toast-close-button">&#10006;</span>
+            <p class="toast-header">This is a toast</p>
+            <div class="toast-progress">
+                <div class="toast-progress-done"></div>
+            </div>
+            <input class="toast-will-go" type="hidden" name="" value="1">
+        </div>
+    </div>
+</body>
+<script>
+    function loadingProgress(progressElement, toastContent, toastWillGo, done = 100, step = 1, velocity = 0){
+        // console.log(willGo);
+        setTimeout(() => {
+            // console.log(toastWillGo.value);
+            if(toastWillGo.value == 1){
+                step += velocity;
+                done -= step;
+                progressElement.style.width = done.toString() + '%';
+            }
+            if(done > 0){
+                loadingProgress(progressElement, toastContent, toastWillGo, done, step);
+            }else{
+                toastContent.style.transform = 'translate(500px, 0)';
+                setTimeout(() => {
+                    toastContent.remove();
+                }, 500);
+            }
+        }, 200);
+    }
+    async function showToast(){
+        var container = document.getElementById('container');
+        var moldToastContent = container.getElementsByClassName('toast-content')[0];
+        var newToastContent = moldToastContent.cloneNode(true);
+        container.appendChild(newToastContent);
+
+        var toastWillGo = newToastContent.getElementsByClassName('toast-will-go')[0];
+        // var toastWillGo = moldToastContent.getElementsByClassName('toast-will-go')[0];
+        newToastContent.addEventListener('mouseover', function(){
+            toastWillGo.value = 0;
+        })
+        newToastContent.addEventListener('mouseleave', function(){
+            toastWillGo.value = 1;
+        })
+
+        var toastCloseButton = newToastContent.getElementsByClassName('toast-close-button')[0];
+        toastCloseButton.addEventListener('click', function(){
+            toastWillGo.value = 1;
+            newToastContent.style.transform = 'translate(500px, 0)';
+            setTimeout(() => {
+                newToastContent.remove();
+            }, 500);
+        })
+        
+        var containerProgress = newToastContent.getElementsByClassName('toast-progress-done')[0];
+        containerProgress.style.width = '0%';
+        newToastContent.style.display='block';
+        newToastContent.style.transform = 'translate(500px, 0)';
+        setTimeout(() => {
+            newToastContent.style.transform = 'translate(-0, 0)';
+        }, 0);
+
+        loadingProgress(containerProgress, newToastContent, toastWillGo);
+    }
+    
+</script>
+</html>
