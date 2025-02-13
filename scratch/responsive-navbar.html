@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive NavBar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 200vh;
+            background: linear-gradient(#73a17b, #8f7377);
+            overflow-x: hidden;
+        }
+
+        p {
+            margin: 20px 5px;
+        }
+
+        nav {
+            background-color: coral;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav>.menu-container {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            padding: 0px 20px;
+        }
+
+        .menu{
+            padding: 10px;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .menu-button {
+            display: none;
+        }
+
+        .menu:hover{
+            color: white;
+            background-color: rgba(1, 1, 1, 0.5);
+        }
+
+        #menu-check {
+            display: none;
+        }
+
+        #menu-check~.navbar-backdrop {
+            background-color: rgba(1, 1, 1, 0.5);
+            height: 100%;
+            width: 100%;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .right-menu {
+                padding: 5px 30px;
+            }
+
+            .menu-button {
+                display: inline-block;
+                padding: 10px 20px;
+            }
+
+            nav>.right-menu-container {
+                /* display: none; */
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                transform: translate(100%, 0);
+                padding: 0;
+                z-index: 10;
+                background-color: inherit;
+                transition: all 500ms;
+            }
+
+            #menu-check:checked~nav>.right-menu-container {
+                transform: translate(0);
+            }
+
+            #menu-check:checked~.navbar-backdrop {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="menu-check">
+    <nav>
+        <!-- <span class="menu">Sports</span> -->
+        <ul class="menu-container left-menu-container">
+            <li class="menu left-menu">XYZ LTD.</li>
+            <li class="menu left-menu">Special Offers</li>
+            <li class="menu left-menu">Top Sales</li>
+        </ul>
+        <label for="menu-check" class="menu-button">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 50 50">
+                <path d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z">
+                </path>
+            </svg>
+        </label>
+        <ul class="menu-container right-menu-container">
+            <li class="menu right-menu">Home</li>
+            <li class="menu right-menu">Offers</li>
+            <li class="menu right-menu">Profile</li>
+            <li class="menu right-menu">Login</li>
+        </ul>
+    </nav>
+    <label for="menu-check" class="navbar-backdrop"></label>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, vitae dolorum eum necessitatibus vel tenetur
+        laudantium corporis alias libero quaerat, veniam sed est! Dolorem fugiat repellendus nisi quis quia. Obcaecati.
+    </p>
+</body>
+
+</html>
